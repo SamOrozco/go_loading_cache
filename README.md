@@ -2,6 +2,11 @@
 
 This is a simple straightforward cache library for Go. It is takes inspiration from the [Caffeine](https://github.com/ben-manes/caffeine) cache library for Java.
 
+## Installing
+```bash
+go get -u github.com/SamOrozco/go_loading_cache
+```
+
 ## Features
 There are two main caches types in this library:
 1. BlockingCache: This cache is a blocking cache that will block on a get request in the entry is expired until the value is available.
