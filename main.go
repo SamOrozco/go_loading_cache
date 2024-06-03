@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go_loading_cache/cache"
+	"github.com/SamOrozco/go_loading_cache/cache"
 	"time"
 )
 
