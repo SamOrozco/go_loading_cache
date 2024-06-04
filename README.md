@@ -18,12 +18,15 @@ There are two main caches types in this library:
 ### Cache interface
 ```go
 type Cache[K comparable, V any] interface {
-	// Get returns the value associated with the key k from the cache. The second return type will be false if the key was not able to be loaded.
-	// so a second return type of false will indicate an issue in loading the value and it will not be put in the cache
-	Get(k K) (V, bool)
-	// Put inserts a value into the cache associated with the key k. If the key already exists, the value will be updated.
-	// The return value will be true if the value was inserted, and false if the value was updated.
-	Put(k K, v V) bool
+// Get returns the value associated with the key k from the cache. The second return type will be false if the key was not able to be loaded.
+// so a second return type of false will indicate an issue in loading the value and it will not be put in the cache
+Get(k K) (V, bool)
+// Put inserts a value into the cache associated with the key k. If the key already exists, the value will be updated.
+// The return value will be true if the value was inserted, and false if the value was updated.
+Put(k K, v V) bool
+// Remove removes the value associated with the key k from the cache.
+// The return value will be true if the value was removed, and false if the value was not found.
+Remove(k K) bool
 }
 ```
 
