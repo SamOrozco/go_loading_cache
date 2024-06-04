@@ -117,3 +117,13 @@ func (c *cacheData[K, V]) Put(k K, v V) bool {
 		return false
 	}
 }
+
+func (c *cacheData[K, V]) Remove(k K) bool {
+	c.dataLock.Lock()
+	defer c.dataLock.Unlock()
+
+	_, exists := c.keyData[k]
+	delete(c.keyData, k)
+	delete(c.valueData, k)
+	return exists
+}
