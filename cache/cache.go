@@ -31,6 +31,7 @@ type CacheHooks[K comparable] struct {
 	OnCacheMiss         func(k K)
 	OnCacheHit          func(k K)
 	OnFailedToLoadEntry func(k K)
+	OnCacheRemove       func(k K)
 	OnCacheLoadDuration func(k K, duration time.Duration)
 }
 
@@ -63,4 +64,7 @@ type Cache[K comparable, V any] interface {
 	// Put inserts a value into the cache associated with the key k. If the key already exists, the value will be updated.
 	// The return value will be true if the value was inserted, and false if the value was updated.
 	Put(k K, v V) bool
+	// Remove removes the value associated with the key k from the cache.
+	// The return value will be true if the value was removed, and false if the value was not found.
+	Remove(k K) bool
 }

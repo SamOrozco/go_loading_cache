@@ -35,6 +35,17 @@ func (b *blockingExpiredCache[K, V]) Put(k K, v V) bool {
 	return b.cacheData.Put(k, v)
 }
 
+func (b *blockingExpiredCache[K, V]) Remove(k K) bool {
+	b.cacheRemoved(k)
+	return b.cacheData.Remove(k)
+}
+
+func (b blockingExpiredCache[K, V]) cacheRemoved(k K) {
+	if b.cacheInfo.Hooks.OnCacheRemove != nil {
+		b.cacheInfo.Hooks.OnCacheRemove(k)
+	}
+}
+
 func (b *blockingExpiredCache[K, V]) cacheMiss(k K) {
 	if b.cacheInfo.Hooks.OnCacheMiss != nil {
 		b.cacheInfo.Hooks.OnCacheMiss(k)

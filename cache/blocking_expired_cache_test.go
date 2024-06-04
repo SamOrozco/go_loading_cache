@@ -109,3 +109,30 @@ func TestWhenLoadingDataThatHasExpiredReloadDataOnRequest(t *testing.T) {
 		t.Errorf("Expected to call loader twice")
 	}
 }
+
+func TestWhenRemovingFromCacheAndItemExistsReturnTrue(t *testing.T) {
+	// setup
+	initTests()
+
+	// execute
+	cache.Put("key", "value")
+	removed := cache.Remove("key")
+
+	// verify
+	if !removed {
+		t.Errorf("Expected to remove value")
+	}
+}
+
+func TestWhenRemovingFromCacheAndItemDoesNotExistReturnFalse(t *testing.T) {
+	// setup
+	initTests()
+
+	// execute
+	removed := cache.Remove("key")
+
+	// verify
+	if removed {
+		t.Errorf("Expected value to not exists when removing")
+	}
+}

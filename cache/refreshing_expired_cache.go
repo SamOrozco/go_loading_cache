@@ -45,6 +45,17 @@ func (r refreshingExpiredCache[K, V]) Put(k K, v V) bool {
 	return r.cacheData.Put(k, v)
 }
 
+func (b refreshingExpiredCache[K, V]) Remove(k K) bool {
+	b.cacheRemoved(k)
+	return b.cacheData.Remove(k)
+}
+
+func (b refreshingExpiredCache[K, V]) cacheRemoved(k K) {
+	if b.cacheInfo.Hooks.OnCacheRemove != nil {
+		b.cacheInfo.Hooks.OnCacheRemove(k)
+	}
+}
+
 func (r refreshingExpiredCache[K, V]) cacheMiss(k K) {
 	if r.cacheInfo.Hooks.OnCacheMiss != nil {
 		r.cacheInfo.Hooks.OnCacheMiss(k)
